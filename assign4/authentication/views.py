@@ -34,8 +34,9 @@ def user_logout(request):
     return redirect('login')
 
 @login_required
+
 def home(request):
-    return render(request, 'authentication/home.html')
+    return render(request, 'taskmanager/task_list.html')
     
 
 

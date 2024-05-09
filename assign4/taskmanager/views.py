@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from .models import Task
 
+
 #CRUD operations:
+
 def task_list(request):
     tasks = Task.objects.all()
     return render(request, 'taskmanager/task_list.html', {'tasks': tasks})
