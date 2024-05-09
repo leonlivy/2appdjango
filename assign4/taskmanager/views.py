@@ -6,6 +6,8 @@ from .models import Task
 
 def task_list(request):
     tasks = Task.objects.all()
+    tasks.order_by('-priority') #looked from stack social flow. - from hgihest to lowest. 
+    tasks.save()
     return render(request, 'taskmanager/task_list.html', {'tasks': tasks})
 
 def task_detail(request, pk):

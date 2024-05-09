@@ -8,26 +8,12 @@
 <body>
     <h2>Task List</h2>
     <a href="{% url 'task_create' %}">Create Task</a>
-    <table>
-        <tr>
-            <th>Task</th>
-            <th>Due Date</th>
-            <th>Completed</th>
-            <th>Actions</th>
-        </tr>
+    <ul>
         {% for task in tasks %}
-        <tr>
-            <td>{{ task.task }}</td>
-            <td>{{ task.due_date }}</td>
-            <td>{{ task.completed }}</td>
-            <td>
-                <a href="{% url 'task_update' task.id %}">Edit</a>
-                <a href="{% url 'task_delete' task.id %}">Delete</a>
-            </td>
-        </tr>
+            <li>
+                <a href="{% url 'task_detail' task.id %}">{{ task.title }}</a>
+            </li>
         {% endfor %}
-    </table>
-    
 
 </body>
 </html>
