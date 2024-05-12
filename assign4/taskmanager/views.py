@@ -23,14 +23,8 @@ def task_create(request):
         form = TaskForm(request.POST)
         if form.is_valid():
             title = form.cleaned_data['title']
-            due_date = form.cleaned_data['due_date']
-            if title in Task.objects.all() or due_date < Task.objects.all():
+            if title in Task.objects.all() :
                 return render(request, 'taskmanager/task_form.html', {'form': form})
-
-
-
-
-
             else :
              task = form.save()
              return render(request, 'taskmanager/task_detail.html', {'task': task})
