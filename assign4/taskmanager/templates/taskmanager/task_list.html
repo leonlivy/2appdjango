@@ -44,13 +44,26 @@
 </head>
 <body>
     <header><h2>Task List</h2></header>
-    <a href="{% url 'task_create' %}">Create Task</a>
-    <ul>
+  
+  
+        <form action="{% url 'task_create' %}" method="get">
+            <button type="submit">Create Task</button>
+        </form>
+        
+        
+
+  
+    <p>Taskes are showing below: ranking from highest to lowest by priority</p>
+    <ol>
         {% for task in tasks %}
             <li>
                 <a href="{% url 'task_detail' task.id %}">{{ task.title }}</a>
             </li>
         {% endfor %}
-
+    </ol>
+<form action="{% url 'logout' %}" method="post">
+{% csrf_token %}
+ 
+    <button type="submit">Logout</button>
 </body>
 </html>

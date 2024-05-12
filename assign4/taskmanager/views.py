@@ -1,15 +1,14 @@
 from django.shortcuts import render, redirect
 from .models import Task
 from .forms import TaskForm
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
-
 #CRUD operations:
 @login_required
 def task_list(request):
    if request.user.is_authenticated: 
       tasks = Task.objects.all()
-      tasks.order_by('-priority') #looked from stack social flow. - from hgihest to lowest. 
+      tasks =tasks.order_by('-priority') #looked from stack social flow. - from hgihest to lowest. 
       return render(request, 'taskmanager/task_list.html', {'tasks': tasks})
    else: 
     return redirect('login')
@@ -23,8 +22,9 @@ def task_create(request):
         form = TaskForm(request.POST)
         if form.is_valid():
             title = form.cleaned_data['title']
-            if title in Task.objects.all() :
-                return render(request, 'taskmanager/task_form.html', {'form': form})
+            if Task.objects.filter(title=title).exists():
+                 messages.error(request, 'Task already exists')
+                 return render(request, 'taskmanager/task_form.html', {'form': form})
             else :
              task = form.save()
              return render(request, 'taskmanager/task_detail.html', {'task': task})

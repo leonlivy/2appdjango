@@ -37,6 +37,11 @@
 </head>
 <body>
     <h2>Task Form</h2>
+    <p>
+        {%for message in messages%}
+            {{message}}
+        {%endfor%}
+    </p>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
