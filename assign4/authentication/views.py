@@ -5,6 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 
 
+
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -27,16 +28,22 @@ def user_login(request):
             return redirect('home')
         else:
             messages.error(request, 'Invalid username or password')
-    return render(request, 'authentication/login_in.html')
+        return render(request, 'authentication/login_in.html')
+    else :
+        return render(request, 'authentication/login_in.html')
+    
 
 def user_logout(request):
     logout(request)
+    messages.add_message(request, "You have successfully logged out.")
     return redirect('login')
+
 
 @login_required
 
 def home(request):
-    return render(request, 'taskmanager/task_list.html')
+    if request.user.is_authenticated:
+     return redirect ('task_list')
     
 
 

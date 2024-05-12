@@ -1,14 +1,18 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from .models import Task
 from .forms import TaskForm
+from django.contrib.auth.decorators import login_required
 
 
 #CRUD operations:
-
+@login_required
 def task_list(request):
-    tasks = Task.objects.all()
-    tasks.order_by('-priority') #looked from stack social flow. - from hgihest to lowest. 
-    return render(request, 'taskmanager/task_list.html', {'tasks': tasks})
+   if request.user.is_authenticated: 
+      tasks = Task.objects.all()
+      tasks.order_by('-priority') #looked from stack social flow. - from hgihest to lowest. 
+      return render(request, 'taskmanager/task_list.html', {'tasks': tasks})
+   else: 
+    return redirect('login')
 
 def task_detail(request, pk):
     task = Task.objects.get(id=pk)
