@@ -41,6 +41,7 @@ def task_update(request, pk):
             return render(request, 'taskmanager/task_detail.html', {'task': task})
     else:
         form = TaskForm(instance=task)
+    return render(request, 'taskmanager/task_form.html', {'form': form})
 def task_delete(request, pk):
     task = Task.objects.get(id=pk)
     task.delete()
